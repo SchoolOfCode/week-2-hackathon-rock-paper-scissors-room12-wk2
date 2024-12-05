@@ -16,7 +16,9 @@ function getResult(playerMove, computerMove){
     }
     }
 
-let computerMove = "scissors";
+let randomNumber = Math.floor(Math.random() * 3);
+console.log(randomNumber)
+let computerMove = moveList[randomNumber];
 let playerMove = prompt("Type your move: rock, paper, or scissors"); // would be good to prevent invalid input
 let result = getResult(playerMove, computerMove);
 
