@@ -1,4 +1,4 @@
-let moveList = ["rock", "paper", "scissors", "rock"];
+let moveList = ["rock", "paper", "scissors", "spock", "lizard", "rock",];
 
 let score = 0;
 let playAgain = true;
@@ -7,19 +7,21 @@ function userNameCap (str){
 };
 let username = prompt("Enter your username:");
 while (username.length > 10 || userNameCap(username) == false) {
-    username = prompt("Enter your username:");
-    console.log("Username must start with a capital and must be 10 or fewwer characters.")
+    username = prompt("Username must start with a capital and must be 10 or fewwer characters. Enter your username:");
+    // console.log("Username must start with a capital and must be 10 or fewwer characters.")
 };
 
 while (playAgain === true) {
-
-
 function getResult(playerMove, computerMove){
     if(playerMove == computerMove) {
         return 0 ;
         
-    } 
+    } // logic for losing basic rock paper scissors
     else if (moveList.indexOf(computerMove) == (moveList.indexOf(playerMove) + 1 ) % (moveList.length - 1)) {
+        score--;
+        return -1 ;
+    } // logic for losing advanced rock paper scissors lizard spock
+    else if (moveList.indexOf(computerMove) == (moveList.indexOf(playerMove) + 3 ) % (moveList.length - 1)) {
         score--;
         return -1 ;
     }
@@ -29,20 +31,19 @@ function getResult(playerMove, computerMove){
     }
 }
 function generateComputerMove(){
-    let randomNumber = Math.floor(Math.random() * 3);
-    console.log(randomNumber)
+    let randomNumber = Math.floor(Math.random() * (moveList.length - 1));
+    // console.log(moveList[randomNumber]);
     return moveList[randomNumber];
 }
 
 
+let playerMove = prompt( `${username}: Type your move: ${moveList.slice(0, -2)} or ${moveList.at(-2)}`); // would be good to prevent invalid input
 
-let playerMove = prompt( `${username}: Type your move: rock, paper, or scissors`); // would be good to prevent invalid input
+computerMove = generateComputerMove();
 
-let result = getResult(playerMove, generateComputerMove() );
+let result = getResult(playerMove, computerMove);
 
-alert( `${username}: Your score changes by ${result}.` + ` This is your current score: ${score}.`);
-
-
+alert( `${username}, I guessed ${computerMove}! Your score changes by ${result}.` + ` This is your current score: ${score}.`);
 
 
 playAgain = confirm("Do you want to play again?");
@@ -50,5 +51,4 @@ playAgain = confirm("Do you want to play again?");
   if (!playAgain) {
     alert(`Game over. Your final score is ${score}.`);
   }
-
 }
